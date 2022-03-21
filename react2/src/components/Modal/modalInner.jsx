@@ -14,7 +14,7 @@ const ModalInner = ({currentIndex, closeModal, url, title, description, tags }) 
             window.document.removeEventListener('keydown', escHandler)
         }
     }, [])
-    const { posts } = useContext(PostContext)
+    const { posts, setPosts, LSPostkey } = useContext(PostContext)
     const [newUrl, setNewUrl] = useState(url)
     const [newTitle, setNewTitle] = useState(title)
     const [newDescription, setNewDescription] = useState(description)
@@ -42,8 +42,20 @@ const ModalInner = ({currentIndex, closeModal, url, title, description, tags }) 
         posts[currentIndex].title = newTitle
         posts[currentIndex].description = newDescription
         posts[currentIndex].tags = newTags
+        localStorage.setItem(LSPostkey, JSON.stringify(posts))
         closeModal()
     }
+
+    /*useEffect(() => {
+        const dataFromLS = localStorage.getItem(LSPostkey)
+        if (dataFromLS) {
+          setPosts(JSON.parse(dataFromLS))
+        }
+      }, [])
+
+    useEffect(() => {
+        localStorage.setItem(LSPostkey, JSON.stringify(posts))
+      }, [posts])*/
 
     console.log(currentIndex, newUrl);
     
