@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import { PostContext } from '../../contexts/PostContext'
+import { motion, AnimatePresence } from 'framer-motion'
 import styles from './Modal.module.css'
+import { modalVariants, modalInnerVariants } from './modalAnimation'
 
 const ModalInner = ({currentIndex, closeModal, url, title, description, tags }) => {
     const escHandler = (e) => {
@@ -56,8 +58,14 @@ const ModalInner = ({currentIndex, closeModal, url, title, description, tags }) 
     }
 
     return (
-        <div onClick={modalCloseHandler} className={styles.wrapper}>
-            <div onClick={innerClickHandler} className={styles.inner}>
+        <motion.div
+        variants={modalVariants}
+        initial='start'
+        animate='end'
+        exit='close'
+        onClick={modalCloseHandler}
+        className={styles.wrapper}>
+            <motion.div variants={modalInnerVariants} onClick={innerClickHandler} className={styles.inner}>
                 <svg onClick={modalCloseHandler} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className={`bi bi-x-lg ${styles.icon}`} viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
                     <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
@@ -95,8 +103,8 @@ const ModalInner = ({currentIndex, closeModal, url, title, description, tags }) 
                         <button onClick={editPostHandler} type="submit" className="btn btn-primary my-1">Редактировать</button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 
