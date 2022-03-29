@@ -2,24 +2,31 @@ import { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../../contexts/PostContext";
 
 const PostSearch = () => {
-  const { setPosts, backUpPosts } = useContext(PostContext);
+  const { setPosts, backUpPosts, setBackUpPosts, posts, LSPostkey} = useContext(PostContext);
 
   const [searchInput, setSearchInput] = useState("");
-
-  console.log(backUpPosts);
-
+  
   useEffect(() => {
     const searchRegExp = new RegExp(searchInput, "i");
     if (searchInput) {
+      setBackUpPosts(posts)
       setPosts((prev) => prev.filter((post) => searchRegExp.test(post.title)));
     } else {
       setPosts(backUpPosts);
+      localStorage.setItem(LSPostkey, JSON.stringify(posts))
     }
   }, [searchInput]);
+
+  useEffect(() => {
+    setPosts(backUpPosts);
+    localStorage.setItem(LSPostkey, JSON.stringify(posts))
+  }, [])
 
   const changeInputHandler = (e) => {
     setSearchInput(e.target.value);
   };
+
+  console.log(backUpPosts);
 
   return (
     <form className="d-flex align-items-center flex-column">

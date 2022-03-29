@@ -24,8 +24,6 @@ const PostDetail = () => {
     const { posts } = useContext(PostContext)
     
     const { id } = useParams()
-
-    console.log(posts, id);
         
     const postForViewing = posts.find(post => post.id === +id)
     

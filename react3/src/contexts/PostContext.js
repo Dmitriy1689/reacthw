@@ -3,11 +3,14 @@ const PostContext = createContext();
 const LSPostkey = "post";
 const PostProvider = ({ children }) => {
   const [backUpPosts, setBackUpPosts] = useState([]);
-  const [posts, setPosts] = useState(() => {
+  
+  const postInitialStatement = () => {
     const dataFromLS = localStorage.getItem(LSPostkey);
 
     return JSON.parse(dataFromLS) || [];
-  });
+  }
+
+  const [posts, setPosts] = useState(postInitialStatement);
 
   const addNewPost = (url, title, description, tags, id) => {
     setPosts((prev) => [
@@ -39,7 +42,6 @@ const PostProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem(LSPostkey, JSON.stringify(posts));
-    setBackUpPosts(posts)
   }, [posts]);
 
   console.log(backUpPosts);
@@ -47,6 +49,7 @@ const PostProvider = ({ children }) => {
   return (
     <PostContext.Provider
       value={{
+        setBackUpPosts,
         backUpPosts,
         posts,
         addNewPost,
