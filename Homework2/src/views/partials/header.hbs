@@ -1,0 +1,25 @@
+<div class="d-flex flex-row justify-content-evenly">
+    <div>
+        <a href="/">
+            <h3>Main page</h3>
+        </a>
+    </div>
+    {{#if name}}
+    <div>
+        <a href="/auth/signout">
+            <h3>Sign out</h3>
+        </a>
+    </div>
+    {{else}}
+    <div>
+        <a href="/auth/signin">
+            <h3>Sign in</h3>
+        </a>
+    </div>
+    <div>
+        <a href="/auth/signup">
+            <h3>Sign up</h3>
+        </a>
+    </div>
+    {{/if}}
+</div>

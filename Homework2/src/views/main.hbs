@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center flex-column">
+    <div class="card">
+        <h1 class="card-header text-center bg-primary">Memogram</h5>
+            <div class="card-body bg-success">
+                <h3 class="card-text text-center">Create your own mem's collection!</h3>
+            </div>
+    </div>
+    <form class="d-flex flex-column align-items-center" action="/photogallery" method="POST">
+        <div class="mb-3">
+            <input name="picture" placeholder="Paste your image link" type="text" class="form-control"
+                id="imagelinkpaste">
+        </div>
+        <div class="mb-3">
+            <input name="post" placeholder="Enter description" type="text" class="form-control" id="imagelinkpaste">
+        </div>
+        <button type="submit" class="btn btn-primary">Загрузить</button>
+    </form>
+</div>
+
+<hr />
+{{#if name}}
+<section data-delete class="container row">
+    {{#each listOfImages}}
+
+    <div class="col-sm-4 mb-3 divForDelete">
+        <img src="{{this.picture}}" class="card-img-top" alt="your photo" width="300" height="300">
+        <div class="card-body text-center" style="background-color: darkgrey;">
+            <p class="card-text">{{this.post}}</p>
+        </div>
+        <button name="{{this.id}}">Delete post</button>
+    </div>
+
+    {{/each}}
+
+
+</section>
+{{else}}
+
+<div class="d-flex justify-content-center">
+    <h4>Viewing is available only to authorized users, please log in</h4>
+</div>
+
+{{/if}}
